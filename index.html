@@ -80,6 +80,7 @@
       margin-bottom: 10px;
       -webkit-tap-highlight-color: transparent;
       transition: filter 0.1s ease;
+      box-shadow: none !important;
       transition: transform 0.1s ease; /* Add a transition for the transform property */
     }
 
@@ -2320,8 +2321,8 @@
     let gameRunning = false;
     let fakeLobsterCount = 0;
    	let fakeLobsterPenalty = 0.7; 
-   	let clicksRemaining = 100; 
-    let clicksPerMinuteLimit = 100; 
+   	let clicksRemaining = 1000; 
+    let clicksPerMinuteLimit = 1000; 
     let limitBoostPrice = 1000; 
     let limitBoostLevel = 0;
     let isClicking = false;
@@ -3784,32 +3785,50 @@
     }
     
     //background: linear-gradient(0deg, #00ff11 0%, #005266 100%);
-    if (!Telegram.WebApp.initDataUnsafe.user.id === 6149777666) {
-      WebApp.ready();
-      WebApp.setHeaderColor('#005266');
-      WebApp.setBackgroundColor('#00ff11');
-      // ... (rest of your code) ...
+    WebApp.ready();
+    WebApp.setHeaderColor('#005266');
+    WebApp.setBackgroundColor('#00ff11');
+    // ... (rest of your code) ...
 
-      document.getElementById('loadingPopup').style.display = 'flex'; 
+    document.getElementById('loadingPopup').style.display = 'flex'; 
 
-      // Function to check if all images are loaded
-      function areImagesLoaded() {
-        const images = document.querySelectorAll('img');
-        let loadedCount = 0;
-        images.forEach(image => {
-          if (image.complete) {
-            loadedCount++;
-          }
-        });
-        const percentage = Math.round((loadedCount / images.length) * 100);
-        // Update the loading percentage text element
-        document.getElementById('loadingPercentage').textContent = `${percentage}%`; 
-        return loadedCount === images.length;
+    // Function to check if all images are loaded
+    function areImagesLoaded() {
+      const images = document.querySelectorAll('img');
+      let loadedCount = 0;
+      images.forEach(image => {
+        if (image.complete) {
+          loadedCount++;
+        }
+      });
+      const percentage = Math.round((loadedCount / images.length) * 100);
+      // Update the loading percentage text element
+      document.getElementById('loadingPercentage').textContent = `${percentage}%`; 
+      return loadedCount === images.length;
+    }
+
+    // Set a timer to check if all images are loaded
+    let loadingTimeout = setTimeout(() => {
+      // Close the loading popup after 20 seconds if images are not loaded
+      document.getElementById('loadingPopup').style.display = 'none';
+      WebApp.isVerticalSwipesEnabled = false;
+      if (!WebApp.isExpanded) {
+        WebApp.expand();
       }
+      WebApp.enableClosingConfirmation();
+      WebApp.setHeaderColor('#000000');
+      WebApp.setBackgroundColor('#000000');
+      WebApp.disableVerticalSwipes();
+    }, 20000); 
 
-      // Set a timer to check if all images are loaded
-      let loadingTimeout = setTimeout(() => {
-        // Close the loading popup after 20 seconds if images are not loaded
+    // Check if all images are loaded every 100ms
+    let imageLoadInterval = setInterval(() => {
+      if (areImagesLoaded()) {
+        // Clear the timeout and interval
+        clearTimeout(loadingTimeout);
+        clearInterval(imageLoadInterval);
+
+        // Hide the loading popup
         document.getElementById('loadingPopup').style.display = 'none';
         WebApp.isVerticalSwipesEnabled = false;
         if (!WebApp.isExpanded) {
@@ -3819,34 +3838,8 @@
         WebApp.setHeaderColor('#000000');
         WebApp.setBackgroundColor('#000000');
         WebApp.disableVerticalSwipes();
-      }, 20000); 
-
-      // Check if all images are loaded every 100ms
-      let imageLoadInterval = setInterval(() => {
-        if (areImagesLoaded()) {
-          // Clear the timeout and interval
-          clearTimeout(loadingTimeout);
-          clearInterval(imageLoadInterval);
-
-          // Hide the loading popup
-          document.getElementById('loadingPopup').style.display = 'none';
-          WebApp.isVerticalSwipesEnabled = false;
-          if (!WebApp.isExpanded) {
-            WebApp.expand();
-          }
-          WebApp.enableClosingConfirmation();
-          WebApp.setHeaderColor('#000000');
-          WebApp.setBackgroundColor('#000000');
-          WebApp.disableVerticalSwipes();
-        }
-      }, 100);
-    }
-    else {
-      document.getElementById('loadingPopup').style.display = 'flex';
-      WebApp.showAlert("Sorry you aren't allowed to access this game");
-      setTimeout(1000)
-      WebApp.close();
-    }
+      }
+    }, 100);
 
 // ... (rest of your code) ...
     
@@ -4218,17 +4211,17 @@
       defaultSkin,
       {
         name: "Wilhelm",
-        imageUrl: "https://images.thedirect.com/media/article_full/royals.jpg",
+        imageUrl: "https://i.ibb.co/HVbkNJG/Background-Eraser-20241001-223535320.png",
         price: 10000,
         profit: 1000,
         description: "Wilhelm from 'The Royals'"
       },
       {
         name: "Omar Rudberg",
-        imageUrl: "https://vmagazine.com/wp-content/uploads/2022/08/omar-cover-1.jpg", 
+        imageUrl: "https://i.ibb.co/CWc8yz0/Background-Eraser-20241001-223339593.png", 
         price: 5000000,
         profit: 10000,
-        description: "The best gay" 
+        description: "The best handsome gay" 
       },
       {
         name: "Egor",
@@ -4248,7 +4241,7 @@
 
 
     // Load purchased skins from localStorage
-    let purchasedSkins = localStorage.getItem('purchasedSkins') ? JSON.parse(localStorage.getItem('purchasedSkins')) : [];
+    let purchasedSkins1 = localStorage.getItem('purchasedSkins1') ? JSON.parse(localStorage.getItem('purchasedSkins1')) : [];
     let equippedSkin = localStorage.getItem('equippedSkin') || null; // Load equipped skin
 
     // Function to open the skins popup
@@ -4353,7 +4346,7 @@
         skinCard.appendChild(skinPrice);
 
         const buyButton = document.createElement('button');
-        if (!purchasedSkins.includes(skin.name)) {
+        if (!purchasedSkins1.includes(skin.name)) {
           buyButton.textContent = 'Buy';
           buyButton.addEventListener('click', () => buySkin(skin));
         } else if (equippedSkin === skin.name) {
@@ -4520,12 +4513,12 @@
 
         skinProfitPerHour += Number(skin.profit); // Update skin profit
         localStorage.setItem('skinProfitPerHour', JSON.stringify(skinProfitPerHour)); // Update local storage
-        purchasedSkins.push(skin.name); // Add the skin to purchasedSkins
-        localStorage.setItem('purchasedSkins', JSON.stringify(purchasedSkins)); 
+        purchasedSkins1.push(skin.name); // Add the skin to purchasedSkins1
+        localStorage.setItem('purchasedSkins1', JSON.stringify(purchasedSkins1)); 
 
         equipSkin(skin); // Equip the skin after purchase
 
-        // Update the display *after* updating purchasedSkins
+        // Update the display *after* updating purchasedSkins1
         displaySkins(); 
 
         showMessage(`You purchased the ${skin.name} skin!`);
@@ -4681,7 +4674,7 @@
           dailyRewardIndex = 0; 
           lastRewardClaimTime = 0; 
           collectedComboCards = []; 
-          purchasedSkins = [];
+          purchasedSkins1 = [];
           equippedSkin = null; 
           customSkinPurchased = false;
           customSkinEquipped = false;
