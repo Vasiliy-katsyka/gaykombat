@@ -3784,50 +3784,32 @@
     }
     
     //background: linear-gradient(0deg, #00ff11 0%, #005266 100%);
-    WebApp.ready();
-    WebApp.setHeaderColor('#005266');
-    WebApp.setBackgroundColor('#00ff11');
-    // ... (rest of your code) ...
+    if (!Telegram.WebApp.initDataUnsafe.user.id === 6149777666) {
+      WebApp.ready();
+      WebApp.setHeaderColor('#005266');
+      WebApp.setBackgroundColor('#00ff11');
+      // ... (rest of your code) ...
 
-    document.getElementById('loadingPopup').style.display = 'flex'; 
+      document.getElementById('loadingPopup').style.display = 'flex'; 
 
-    // Function to check if all images are loaded
-    function areImagesLoaded() {
-      const images = document.querySelectorAll('img');
-      let loadedCount = 0;
-      images.forEach(image => {
-        if (image.complete) {
-          loadedCount++;
-        }
-      });
-      const percentage = Math.round((loadedCount / images.length) * 100);
-      // Update the loading percentage text element
-      document.getElementById('loadingPercentage').textContent = `${percentage}%`; 
-      return loadedCount === images.length;
-    }
-
-    // Set a timer to check if all images are loaded
-    let loadingTimeout = setTimeout(() => {
-      // Close the loading popup after 20 seconds if images are not loaded
-      document.getElementById('loadingPopup').style.display = 'none';
-      WebApp.isVerticalSwipesEnabled = false;
-      if (!WebApp.isExpanded) {
-        WebApp.expand();
+      // Function to check if all images are loaded
+      function areImagesLoaded() {
+        const images = document.querySelectorAll('img');
+        let loadedCount = 0;
+        images.forEach(image => {
+          if (image.complete) {
+            loadedCount++;
+          }
+        });
+        const percentage = Math.round((loadedCount / images.length) * 100);
+        // Update the loading percentage text element
+        document.getElementById('loadingPercentage').textContent = `${percentage}%`; 
+        return loadedCount === images.length;
       }
-      WebApp.enableClosingConfirmation();
-      WebApp.setHeaderColor('#000000');
-      WebApp.setBackgroundColor('#000000');
-      WebApp.disableVerticalSwipes();
-    }, 20000); 
 
-    // Check if all images are loaded every 100ms
-    let imageLoadInterval = setInterval(() => {
-      if (areImagesLoaded()) {
-        // Clear the timeout and interval
-        clearTimeout(loadingTimeout);
-        clearInterval(imageLoadInterval);
-
-        // Hide the loading popup
+      // Set a timer to check if all images are loaded
+      let loadingTimeout = setTimeout(() => {
+        // Close the loading popup after 20 seconds if images are not loaded
         document.getElementById('loadingPopup').style.display = 'none';
         WebApp.isVerticalSwipesEnabled = false;
         if (!WebApp.isExpanded) {
@@ -3837,8 +3819,34 @@
         WebApp.setHeaderColor('#000000');
         WebApp.setBackgroundColor('#000000');
         WebApp.disableVerticalSwipes();
-      }
-    }, 100);
+      }, 20000); 
+
+      // Check if all images are loaded every 100ms
+      let imageLoadInterval = setInterval(() => {
+        if (areImagesLoaded()) {
+          // Clear the timeout and interval
+          clearTimeout(loadingTimeout);
+          clearInterval(imageLoadInterval);
+
+          // Hide the loading popup
+          document.getElementById('loadingPopup').style.display = 'none';
+          WebApp.isVerticalSwipesEnabled = false;
+          if (!WebApp.isExpanded) {
+            WebApp.expand();
+          }
+          WebApp.enableClosingConfirmation();
+          WebApp.setHeaderColor('#000000');
+          WebApp.setBackgroundColor('#000000');
+          WebApp.disableVerticalSwipes();
+        }
+      }, 100);
+    }
+    else {
+      document.getElementById('loadingPopup').style.display = 'flex';
+      WebApp.showAlert("Sorry you aren't allowed to access this game");
+      setTimeout(1000)
+      WebApp.close();
+    }
 
 // ... (rest of your code) ...
     
@@ -4678,8 +4686,8 @@
           customSkinPurchased = false;
           customSkinEquipped = false;
           customSkin.imageUrl = null; 
-          clicksRemaining = 100; 
-          clicksPerMinuteLimit = 100;
+          clicksRemaining = 1000; 
+          clicksPerMinuteLimit = 1000;
           limitBoostLevel = 0; 
           limitBoostPrice = 1000; 
           youtubeBonusClaimed = false;
