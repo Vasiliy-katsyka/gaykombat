@@ -393,6 +393,7 @@
 
     .counter img {
       margin-right: 10px;
+      
     }
 
     .profit-per-hour {
@@ -714,6 +715,7 @@
       display: none; /* Initially hidden */
     }
 
+    .airdrop-popup .logo,
     .airdrop-popup .logo-1 {
       width: 200px;
       height: 200px;
@@ -725,27 +727,39 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      box-shadow: 0 0 60px yellow; /* Yellow gradient shadow */
-      margin-buttom: 90px;
-      margin-left: auto; /* Add margin-left: auto */
-      margin-right: auto; /* Add margin-right: auto */
+      box-shadow: 0 0 60px yellow; /* Initial yellow shadow */
+      margin-bottom: 90px;
+      margin-left: auto; 
+      margin-right: auto; 
+      /* Add animation for rainbow glow */
+      animation: rainbowGlow 2s linear infinite;
     }
-    
-    .airdrop-popup .logo {
-      width: 200px;
-      height: 200px;
-      margin-top: 50px;
-      background: linear-gradient(to right, #FFD700, #FFC300, #FFAA00, #FFA500);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      box-shadow: 0 0 60px yellow; /* Yellow gradient shadow */
-      margin-buttom: 90px;
-      margin-left: auto; /* Add margin-left: auto */
-      margin-right: auto; /* Add margin-right: auto */
+
+    @keyframes rainbowGlow {
+      0% {
+        box-shadow: 0 0 50px red; /* Blur radius increased to 50px */
+      }
+      14% {
+        box-shadow: 0 0 50px orange;
+      }
+      28% {
+        box-shadow: 0 0 50px yellow;
+      }
+      42% {
+        box-shadow: 0 0 50px green;
+      }
+      57% {
+        box-shadow: 0 0 50px blue;
+      }
+      71% {
+        box-shadow: 0 0 50px indigo;
+      }
+      85% {
+        box-shadow: 0 0 50px violet;
+      }
+      100% {
+        box-shadow: 0 0 50px red;
+      }
     }
 
     .airdrop-popup .logo img {
@@ -901,6 +915,33 @@
 
     .lobster-catch-popup .close-button:hover {
       color: red;
+    }
+
+    @keyframes rainbowGlowCounter {
+      0% {
+        box-shadow: 0 0 10px red; /* Smaller blur radius: 10px */
+      }
+      14% {
+        box-shadow: 0 0 10px orange;
+      }
+      28% {
+        box-shadow: 0 0 10px yellow;
+      }
+      42% {
+        box-shadow: 0 0 10px green;
+      }
+      57% {
+        box-shadow: 0 0 10px blue;
+      }
+      71% {
+        box-shadow: 0 0 10px indigo;
+      }
+      85% {
+        box-shadow: 0 0 10px violet;
+      }
+      100% {
+        box-shadow: 0 0 10px red;
+      }
     }
 
     .lobster-catch-popup .counter {
@@ -2001,7 +2042,7 @@
   <div class="airdrop-popup" id="airdropPopup">
     <!-- <img src="https://cdn.midjourney.com/6a5f34ab-267b-49af-97c5-1f3c56043c7e/0_2.png" alt="Lobster Swimming in Money" width="100%" height="auto"> -->
     <div class="logo-1">
-      <img src="https://github.com/Vasiliy-katsyka/fdsguai/blob/main/images/logo/logo-transparent.png?raw=true" alt="GayKombat Logo">
+      <img src="https://github.com/Vasiliy-katsyka/gaykombat/blob/main/coin__4___1_-removebg-preview.png?raw=true" alt="GayKombat Logo">
     </div>
     <div class="airdrop-content">
       <h2 id="airdropPopupTitle">Airdrop!</h2>
@@ -2073,7 +2114,7 @@
   
   <div class="airdrop-popup" id="earnPopup">
     <div class="logo-1">
-      <img src="https://github.com/Vasiliy-katsyka/fdsguai/blob/main/images/logo/logo-transparent.png?raw=true" alt="GayKombat Logo">
+      <img src="https://github.com/Vasiliy-katsyka/gaykombat/blob/main/coin__4___1_-removebg-preview.png?raw=true" alt="GayKombat Logo">
     </div>
     <h2 id="earnClicksTitle">Earn Clicks</h2>
     <div class="airdrop-content"> 
