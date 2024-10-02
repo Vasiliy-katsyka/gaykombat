@@ -4272,10 +4272,10 @@
     ];
 
     let startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
-    
+
     if (startParam) {
       document.getElementById('settingsPopup').style.display = 'block';
-      document.getElementById('promoCode').textContent = startParam;
+      document.getElementById('promoCode').value = startParam;
     }
 
     // Load purchased skins from localStorage
