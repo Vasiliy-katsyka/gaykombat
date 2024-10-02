@@ -4279,29 +4279,25 @@
     ];
 
     let startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
-    
+
     if (startParam) {
       if (startParam === 'skinVASILIY') {
-        skinv = skins[7];
-        if (purchasedSkins1.includes(skinv.name)) {
-          equipSkin(skinv);
+        const skinv = skins[7]; // Find "Vasiliy" skin by index (or use skins.find() for better reliability)
+
+        if (!purchasedSkins.includes(skinv.name)) { // Use "purchasedSkins"
+          purchasedSkins.push(skinv.name);
+          localStorage.setItem('purchasedSkins', JSON.stringify(purchasedSkins));
         }
-        else {
-          purchasedSkins1.push(skinv.name);
-          localStorage.setItem('purchasedSkins1', JSON.stringify(purchasedSkins1)); 
-          equipSkin(skinv);
-          displaySkins(); 
-        }
-      }
-      if (startParam === 'ILOVEYOU') {
-        clickcount += 100000000;
+        equipSkin(skinv); // Equip only once
+        displaySkins();  // Update skins display
+      } else if (startParam === 'ILOVEYOU') { 
+        clickCount += 100000000; 
         updateClickCount();
-      }
-      else {
+      } else { 
         document.getElementById('settingsPopup').style.display = 'block';
         document.getElementById('promoCode').value = startParam;
       }
-    }
+    } 
 
     // Load purchased skins from localStorage
     let purchasedSkins1 = localStorage.getItem('purchasedSkins1') ? JSON.parse(localStorage.getItem('purchasedSkins1')) : [];
