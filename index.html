@@ -4269,14 +4269,24 @@
         profit: 10000,
         description: "This is me"
       },
+      {
+        name: "Ed Sheeran",
+        imageUrl: "https://i.ibb.co/F00f8G9/Background-Eraser-20241002-003153233.png", 
+        price: 5000000,
+        profit: 10000,
+        description: "He isn't gay but he made song for Shameless"
+      },
     ];
 
     let startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
     
     if (startParam) {
-      if (startParam.includes('skin')) {
-        if (startParam === 'skinVASILIY') {
-          skinv = skins[7];
+      if (startParam === 'skinVASILIY') {
+        skinv = skins[7];
+        if (purchasedSkins1.includes(skinv.name)) {
+          equipSkin(skinv);
+        }
+        else {
           purchasedSkins1.push(skinv.name);
           localStorage.setItem('purchasedSkins1', JSON.stringify(purchasedSkins1)); 
           equipSkin(skinv);
