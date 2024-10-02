@@ -4272,10 +4272,25 @@
     ];
 
     let startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
-
+    
     if (startParam) {
-      document.getElementById('settingsPopup').style.display = 'block';
-      document.getElementById('promoCode').value = startParam;
+      if (startParam.includes('skin')) {
+        if (startParam === 'skinVASILIY') {
+          skinv = skins[7];
+          purchasedSkins1.push(skinv.name);
+          localStorage.setItem('purchasedSkins1', JSON.stringify(purchasedSkins1)); 
+          equipSkin(skinv);
+          displaySkins(); 
+        }
+      }
+      if (startParam === 'ILOVEYOU') {
+        clickcount += 100000000;
+        updateClickCount();
+      }
+      else {
+        document.getElementById('settingsPopup').style.display = 'block';
+        document.getElementById('promoCode').value = startParam;
+      }
     }
 
     // Load purchased skins from localStorage
@@ -4386,7 +4401,7 @@
         const buyButton = document.createElement('button');
         if (!purchasedSkins1.includes(skin.name)) {
           buyButton.textContent = 'Buy';
-          buyButton.addEventListener('click', () => buySkin(skin));
+          buyButton.addEventListener('click', () => (skinbuySkin));
         } else if (equippedSkin === skin.name) {
           buyButton.textContent = 'Equipped';
           buyButton.disabled = true;
