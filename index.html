@@ -3640,6 +3640,10 @@
         clickCount += 30900987; 
         updateClickCount();
         showMessage("Promo code applied! You've received 50K clicks!"); 
+      } else if (promoCode === "ILOVEOMAR") {
+        clickCount += 30000000; 
+        updateClickCount();
+        showMessage("Promo code applied! You've received 30M clicks!"); 
       } else {
         showMessage("Invalid promo code.");
       }
@@ -4265,29 +4269,14 @@
         profit: 10000,
         description: "This is me"
       },
-      {
-        name: "Ed Sheeran",
-        imageUrl: "https://i.ibb.co/F00f8G9/Background-Eraser-20241002-003153233.png", 
-        price: 5000000,
-        profit: 10000,
-        description: "He isn't gay but he made song for Shameless"
-      },
-      {
-        name: "Ian",
-        imageUrl: "https://i.ibb.co/rmPXQs8/Background-Eraser-20241002-000851257.png", 
-        price: 5000000,
-        profit: 10000,
-        description: "Handsome gay from 'Shameless'"
-      },
-      {
-        name: "Mickey",
-        imageUrl: "https://i.ibb.co/9hDRCfp/Background-Eraser-20241002-000814939.png", 
-        price: 5000000,
-        profit: 10000,
-        description: "Beautiful gay from 'Shameless'"
-      },
     ];
 
+    let startParam = window.Telegram.WebApp.initDataUnsafe.start_param;
+    
+    if (startParam) {
+      document.getElementById('settingsPopup').style.display = 'block';
+      document.getElementById('promoCode').textContent = startParam;
+    }
 
     // Load purchased skins from localStorage
     let purchasedSkins1 = localStorage.getItem('purchasedSkins1') ? JSON.parse(localStorage.getItem('purchasedSkins1')) : [];
